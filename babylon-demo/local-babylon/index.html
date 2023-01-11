@@ -134,11 +134,11 @@
         
                                 particle.angle += particle.angularSpeed * this._scaledUpdateSpeed;
         
-                                particle.direction.scaleToRef(this._scaledUpdateSpeed, this._scaledDirection);
-                                particle.position.addInPlace(this._scaledDirection);
+                                BABYLON.Vector3.scaleToRef(particle.direction, this._scaledUpdateSpeed, this._scaledDirection);
+                                BABYLON.Vector3.addInPlace(particle.position, this._scaledDirection);
         
                                 this.gravity.scaleToRef(this._scaledUpdateSpeed, this._scaledGravity);
-                                particle.direction.addInPlace(this._scaledGravity);
+                                BABYLON.Vector3.addInPlace(particle.direction, this._scaledGravity);
                             }
                         }
                     }
