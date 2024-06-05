@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- https://codepen.io/kevinbcmu/pen/JjqWbEy -->
+<pre>
+    .alternate-red-blue {
+        row-rule: 1px solid;
+        row-rule-color: red blue;
+    }
+    </pre>
+<div class="container" id="example1">
+    <div class="grid layer">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+        <div class="item">11</div>
+        <div class="item">12</div>
+        <div class="item">13</div>
+        <div class="item">14</div>
+        <div class="item">15</div>
+        <div class="item">16</div>
+        <div class="item">17</div>
+        <div class="item">18</div>
+    </div>
+    <div class="decoration layer">
+    </div>
+</div>
+
+<pre>
+    .alternate-heavy-light {
+        row-rule: 2px solid black / 1px solid lightgray;
+    }
+    </pre>
+<div class="container" id="example2">
+    <div class="grid layer">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+        <div class="item">11</div>
+        <div class="item">12</div>
+        <div class="item">13</div>
+        <div class="item">14</div>
+        <div class="item">15</div>
+        <div class="item">16</div>
+        <div class="item">17</div>
+        <div class="item">18</div>
+    </div>
+    <div class="decoration layer">
+    </div>
+</div>
+<style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+
+    pre,
+    .container {
+        position: relative;
+    }
+
+    pre {
+        border: 1px solid black;
+        background: lightgray;
+        padding: 10px;
+    }
+
+    .container {
+        width: 340px;
+        height: 250px;
+    }
+
+    .layer {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template: repeat(auto-fill, 30px) / repeat(3, 100px);
+        grid-gap: 10px;
+    }
+
+    .item {
+        width: 100px;
+        height: 30px;
+        padding: 5px;
+    }
+
+    .decoration div {
+        position: absolute;
+        left: 0px;
+        width: 320px;
+    }
+
+    #example1 .decoration div:nth-child(odd) {
+        height: 1px;
+        background: red;
+    }
+
+    #example1 .decoration div:nth-child(even) {
+        height: 1px;
+        background: blue;
+    }
+
+    #example2 .decoration div:nth-child(odd) {
+        height: 2px;
+        background: black;
+    }
+
+    #example2 .decoration div:nth-child(even) {
+        height: 1px;
+        background: lightgray;
+    }
+</style>
+<script type="text/javascript">
+    let containers = document.querySelectorAll(".container");
+    for (let container of containers) {
+        let decorations = container.querySelector(".decoration")
+        let grid = container.querySelector(".grid")
+        for (let i = 34; i < grid.offsetHeight; i += 40) {
+            let line = document.createElement("div");
+            line.style.top = i + "px";
+            decorations.appendChild(line);
+        }
+    }
+</script>

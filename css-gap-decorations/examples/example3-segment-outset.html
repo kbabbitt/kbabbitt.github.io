@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!-- https://codepen.io/kevinbcmu/pen/VwOpmgV -->
+<pre>
+    .segment-outset-0px {
+      row-rule: 3px solid purple;
+      column-rule: 3px solid green;
+      column-rule-outset: 0px;
+    }
+    </pre>
+<div class="container" data-outset="0">
+    <div class="grid layer">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <div class="decoration layer">
+    </div>
+</div>
+
+<pre>
+    .segment-outset-plus-5px {
+      row-rule: 3px solid purple;
+      column-rule: 3px solid green;
+      column-rule-outset: 5px;
+    }
+    </pre>
+<div class="container" data-outset="5">
+    <div class="grid layer">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <div class="decoration layer">
+    </div>
+</div>
+
+<pre>
+    .segment-outset-minus-5px {
+      row-rule: 3px solid purple;
+      column-rule: 3px solid green;
+      column-rule-outset: -5px;
+    }
+    </pre>
+<div class="container" data-outset="-5">
+    <div class="grid layer">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <div class="decoration layer">
+    </div>
+</div>
+<style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+
+    pre,
+    .container {
+        position: relative;
+    }
+
+    pre {
+        border: 1px solid black;
+        background: lightgray;
+        padding: 10px;
+    }
+
+    .container {
+        height: 350px;
+    }
+
+    .layer {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template: repeat(auto-fill, 100px) / repeat(3, 100px);
+        grid-gap: 20px;
+    }
+
+    .item {
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        background: lightgray;
+    }
+
+    .decoration div {
+        position: absolute;
+    }
+
+    .decoration div.row {
+        left: 0px;
+        width: 340px;
+        height: 3px;
+        background: purple;
+    }
+
+    .decoration div.column {
+        width: 3px;
+        background: green;
+    }
+</style>
+<script type="text/javascript">
+    let containers = document.querySelectorAll(".container")
+    for (let container of containers) {
+        let inset = parseInt(container.getAttribute("data-outset"))
+        let decorations = container.querySelector(".decoration")
+        let grid = container.querySelector(".grid")
+        // column decorations first
+        for (let i = 109; i < grid.offsetWidth; i += 120) {
+            for (let j = 0; j < grid.offsetHeight; j += 120) {
+                let line = document.createElement("div");
+                line.className = "column";
+                line.style.top = (j - inset) + "px";
+                line.style.left = i + "px";
+                line.style.height = (100 + 2 * inset) + "px";
+                decorations.appendChild(line);
+            }
+        }
+        // then row decorations
+        for (let i = 108; i < grid.offsetHeight; i += 120) {
+            let line = document.createElement("div");
+            line.className = "row";
+            line.style.top = i + "px";
+            decorations.appendChild(line);
+        }
+    }
+</script>

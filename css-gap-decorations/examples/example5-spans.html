@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- https://codepen.io/kevinbcmu/pen/XWwRpEq -->
+<pre>
+    .grid-with-spans {
+      display: grid;
+      grid-template: repeat(4, 100px) / repeat(4, 100px);
+      gap: 20px;
+      row-rule: 6px solid red;
+      column-rule: 6px solid blue;
+    }
+</pre>
+<div class="container">
+    <div class="grid layer">
+    <div class="item" style="grid-area: 1 / 1 / 2 / 3">1</div>
+    <div class="item" style="grid-area: 1 / 3 / 3 / 4">2</div>
+    <div class="item" style="grid-area: 2 / 1 / 4 / 2">3</div>
+    <div class="item" style="grid-area: 3 / 2 / 4 / 4">4</div>
+    <div class="item" style="grid-area: 2 / 2 / 3 / 3">5</div>
+    <div class="item" style="grid-area: 2 / 2 / 3 / 3">6</div>
+    <div class="item" style="grid-area: 1 / 4 / 4 / 4">7</div>
+    <div class="item" style="grid-area: 4 / 1 / 4 / 4">8</div>
+    <div class="item" style="grid-area: 4 / 4 / 5 / 5">9</div>
+    </div>
+    <div class="decoration layer">
+    <div class="row" style="left: 0px; top: 107px; width: 233px"></div>
+    <div class="row" style="left: 107px; top: 227px; width: 246px"></div>
+    <div class="row" style="left: 0px; top: 347px; width: 460px"></div>
+    <div class="column" style="left: 227px; top: 0px; height: 230px"></div>
+    <div class="column" style="left: 107px; top: 110px; height: 240px"></div>
+    <div class="column" style="left: 347px; top: 0px; height: 460px"></div>
+    </div>
+</div>
+<pre>
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 500px;
+    row-rule: 6px solid red;
+    column-rule: 6px solid blue;
+}
+</pre>
+<div class="container">
+    <div class="flex layer">
+    <div class="item" style="width: 50px">1</div>
+    <div class="item" style="width: 100px">2</div>
+    <div class="item" style="width: 250px">3</div>
+    <div class="item" style="width: 150px">4</div>
+    <div class="item" style="width: 100px">5</div>
+    <div class="item" style="width: 100px">6</div>
+    <div class="item" style="width: 150px">7</div>
+    <div class="item" style="width: 300px">8</div>
+    </div>
+    <div class="decoration layer">
+    <div class="row" style="left: 0px; top: 107px; width: 500px"></div>
+    <div class="row" style="left: 0px; top: 227px; width: 500px"></div>
+    <div class="column" style="left: 57px; top: 0px; height: 110px"></div>
+    <div class="column" style="left: 177px; top: 0px; height: 110px"></div>
+    <div class="column" style="left: 157px; top: 110px; height: 230px"></div>
+    <div class="column" style="left: 277px; top: 110px; height: 120px"></div>
+    </div>
+</div>    
+<style type="text/css">
+* {
+  box-sizing: border-box;
+}
+pre, .container {
+  position: relative;
+}
+pre {
+  border: 1px solid black;
+  background: lightgray;
+  padding: 10px;
+}
+.container {
+  height: 500px;
+}
+.layer {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.grid {
+  display: grid;
+  grid-template: repeat(4, 100px) / repeat(4, 100px);
+  gap: 20px;
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 500px;
+}
+.item {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  background: lightgray;
+}
+.flex .item {
+  height: 100px;
+}
+.decoration div {
+  position: absolute;
+}
+.decoration div.row {
+  left: 0px;
+  width: 340px;
+  height: 6px;
+  background: red;
+  z-index: -10;
+}
+.decoration div.column {
+  top: 0px;
+  width: 6px;
+  height: 340px;
+  background: blue;
+  z-index: -15;
+}
+</style>

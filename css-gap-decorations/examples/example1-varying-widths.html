@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- https://codepen.io/kevinbcmu/pen/MWdpJav -->
+<pre>
+    .varying-widths {
+        dispay: grid;
+        grid-template: repeat(auto-fill, 30px) / repeat(3, 100px);
+        row-gap: 9px;
+        row-rule: 5px solid black / repeat(auto, 1px solid black) / 3px solid black;
+    }
+    .item {
+      height: 30px;
+      padding: 5px;
+      border: 1px dotted lightgray;
+    }
+    </pre>
+    <div class="container" id="example1">
+      <div class="grid layer">
+        <div class="header item">City</div>
+        <div class="header number item">Population</div>
+        <div class="header number item">Area</div>
+        <div class="item">New York</div>
+        <div class="number item">8,804,190</div>
+        <div class="number item">300.5</div>
+        <div class="item">Los Angeles</div>
+        <div class="number item">3,898,747</div>
+        <div class="number item">469.5</div>
+        <div class="item">Chicago</div>
+        <div class="number item">2,746,388</div>
+        <div class="number item">227.7</div>
+        <div class="item">Houston</div>
+        <div class="number item">2,304,580</div>
+        <div class="number item">640.4</div>
+        <div class="item">Totals</div>
+        <div class="number item">17,753,905</div>
+        <div class="number item">1,638.1</div>
+      </div>
+      <div class="decoration layer">
+      </div>
+    </div>
+<style type="text/css">
+* {
+  box-sizing: border-box;
+}
+pre, .container {
+  position: relative;
+}
+pre {
+  border: 1px solid black;
+  background: lightgray;
+  padding: 10px;
+}
+.container {
+  width: 340px;
+  height: 250px;
+}
+.layer {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.grid {
+  display: grid;
+  grid-template: repeat(auto-fill, 30px) / repeat(3, 100px);
+  row-gap: 9px;
+}
+.header {
+  font-weight: bold;
+}
+.item {
+  height: 30px;
+  padding: 5px;
+  border: 1px dotted lightgray;
+}
+.number {
+  text-align: right;
+}
+.decoration div {
+  position: absolute;
+  left: 0px;
+  width: 300px;
+  height: 1px;
+  background-color: black;
+}
+#example1 .decoration div:nth-child(1) {
+  transform: translate(0px, -2px);
+  height: 5px;
+}
+#example1 .decoration div:nth-last-child(1) {
+  transform: translate(0px, -1px);
+  height: 3px;
+}
+</style>
+<script type="text/javascript">
+let containers = document.querySelectorAll(".container");
+for (let container of containers) {
+  let decorations = container.querySelector(".decoration")
+  let grid = container.querySelector(".grid")
+  for (let i = 34; i < grid.offsetHeight; i += 39) {
+    let line = document.createElement("div");
+    line.style.top = i + "px";
+    decorations.appendChild(line);
+  }
+}
+</script>

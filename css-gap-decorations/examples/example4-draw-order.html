@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- https://codepen.io/kevinbcmu/pen/zYQZNKa -->
+<pre>
+    .row-over-column {
+      row-rule: 6px solid red;
+      column-rule: 6px solid blue;
+      gap-rule-paint-order: row-over-column;
+    }
+    </pre>
+    <div class="container" data-col-z-index="-15">
+      <div class="grid layer">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+      <div class="decoration layer">
+      </div>
+    </div>
+    
+    <pre>
+    .column-over-row {
+      row-rule: 5px solid red;
+      column-rule: 5px solid blue;
+      gap-rule-paint-order: column-over-row;
+    }
+    </pre>
+    <div class="container" data-col-z-index="-5">
+      <div class="grid layer">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+      <div class="decoration layer">
+      </div>
+    </div>
+    
+<style type="text/css">
+* {
+  box-sizing: border-box;
+}
+pre, .container {
+  position: relative;
+}
+pre {
+  border: 1px solid black;
+  background: lightgray;
+  padding: 10px;
+}
+.container {
+  height: 350px;
+}
+.layer {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.grid {
+  display: grid;
+  grid-template: repeat(auto-fill, 100px) / repeat(3, 100px);
+  grid-gap: 20px;
+}
+.item {
+  height: 100px;
+  padding: 5px;
+  background: lightgray;
+}
+.decoration div {
+  position: absolute;
+}
+.decoration div.row {
+  left: 0px;
+  width: 340px;
+  height: 6px;
+  background: red;
+  z-index: -10;
+}
+.decoration div.column {
+  top: 0px;
+  width: 6px;
+  height: 340px;
+  background: blue;
+}
+</style>
+<script type="text/javascript">
+let containers = document.querySelectorAll(".container")
+for (let container of containers) {
+  let z = parseInt(container.getAttribute("data-col-z-index"))
+  let decorations = container.querySelector(".decoration")
+  let grid = container.querySelector(".grid")
+  // column decorations first
+  for (let i = 107; i < grid.offsetWidth; i += 120) {
+      let line = document.createElement("div");
+      line.className = "column";
+      line.style.left = i + "px";
+      line.style.zIndex = z;
+      decorations.appendChild(line);
+  }
+  // then row decorations
+  for (let i = 107; i < grid.offsetHeight; i += 120) {
+    let line = document.createElement("div");
+    line.className = "row";
+    line.style.top = i + "px";
+    decorations.appendChild(line);
+  }
+}</script>

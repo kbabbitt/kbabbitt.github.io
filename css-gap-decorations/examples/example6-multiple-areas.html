@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!-- https://codepen.io/kevinbcmu/pen/GRamWKZ -->
+<pre>
+    .grid-multiple-decoration-areas {
+      display: grid;
+      grid-template-rows: [top] 30px [main-top] repeat(6, 30px) [bottom];
+      grid-template-columns: [left] 100px [main-left] repeat(3, 100px) [right];
+      grid-gap: 10px;
+      grid-row-rule-area: left / top / main-left / bottom,
+                          main-left / main-top / right / bottom;
+      row-rule: 1px solid lightblue,
+                1px solid black;
+      grid-column-rule-area: main-left / top / main-left / bottom;
+      column-rule: 1px solid lightblue;
+    }
+    </pre>
+    <div class="container" id="example1">
+      <div class="grid layer">
+        <div class="item">Month</div>
+        <div class="item">Team 1</div>
+        <div class="item">Team 2</div>
+        <div class="item">Team 3</div>
+        <div class="item" style="grid-row: 2">January</div>
+        <div class="item" style="grid-row: 3">February</div>
+        <div class="item" style="grid-row: 4">March</div>
+        <div class="item" style="grid-row: 5">April</div>
+        <div class="item" style="grid-row: 6">May</div>
+        <div class="item" style="grid-row: 7">June</div>
+      </div>
+      <div class="decoration layer">
+        <div class="row" style="left: 0px; top: 34px; width: 110px"></div>
+        <div class="column" style="left: 105px; top: 0px; height: 280px"></div>
+      </div>
+    </div>
+    
+    <pre>
+    .grid-no-span-break {
+      display: grid;
+      grid-template-rows: [top] 30px [main-top] repeat(6, 30px) [bottom];
+      grid-template-columns: [left] 100px [main-left] repeat(3, 100px) [right];
+      grid-gap: 10px;
+      grid-row-rule-area: left / top / main-left / bottom,
+                          main-left / main-top / right / bottom;
+      row-rule: 1px solid lightblue,
+                1px solid black;
+      grid-column-rule-area: main-left / top / main-left / bottom;
+      column-rule: 1px solid lightblue;
+      grid-rule-break: none;
+    }
+    </pre>
+    <div class="container" id="example1">
+      <div class="grid layer">
+        <div class="item">Month</div>
+        <div class="item">Team 1</div>
+        <div class="item">Team 2</div>
+        <div class="item">Team 3</div>
+        <div class="item" style="grid-row: 2">January</div>
+        <div class="item" style="grid-row: 3">February</div>
+        <div class="item" style="grid-row: 4">March</div>
+        <div class="item" style="grid-row: 5">April</div>
+        <div class="item" style="grid-row: 6">May</div>
+        <div class="item" style="grid-row: 7">June</div>
+        <div class="project item" style="grid-row-end: span 2">Project A</div>
+        <div class="project item" style="grid-row-end: span 1">Project B</div>
+        <div class="project item" style="grid-row-end: span 3">Project C</div>
+        <div class="project item" style="grid-row-end: span 2">Project D</div>
+        <div class="project item" style="grid-row-end: span 3">Project E</div>
+        <div class="project item" style="grid-row-end: span 3">Project F</div>
+        <div class="project item" style="grid-row-end: span 1">Project G</div>
+        <div class="project item" style="grid-row-end: span 2">Project H</div>
+      </div>
+      <div class="decoration layer">
+        <div class="row" style="left: 0px; top: 34px; width: 110px"></div>
+        <div class="column" style="left: 105px; top: 0px; height: 280px"></div>
+      </div>
+    </div>
+    <style type="text/css">
+* {
+  box-sizing: border-box;
+}
+pre, .container {
+  position: relative;
+}
+pre {
+  border: 1px solid black;
+  background: lightgray;
+  padding: 10px;
+}
+.container {
+  width: 340px;
+  height: 300px;
+}
+.layer {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.grid {
+  display: grid;
+  grid-template-rows: [top] 30px [main-top] repeat(6, 30px) [bottom];
+  grid-template-columns: [left] 100px [main-left] repeat(3, 100px) [right];
+  grid-gap: 10px;
+}
+.item {
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+}
+.project {
+  background: rgba(224, 224, 224, 100%);
+  height: 100%;
+}
+.decoration div {
+  position: absolute;
+  z-index: -5;
+}
+.decoration div.row1 {
+  left: 0px;
+  height: 1px;
+  width: 105px;
+  background: lightblue;
+}
+.decoration div.row2 {
+  left: 105px;
+  height: 1px;
+  width: 330px;
+  background: black;
+}
+.decoration div.column {
+  background: lightblue;
+  width: 1px;
+}
+</style>
+<script type="text/javascript">
+    let containers = document.querySelectorAll(".container");
+    for (let container of containers) {
+      let decorations = container.querySelector(".decoration")
+      let grid = container.querySelector(".grid")
+      for (let i = 34; i < grid.offsetHeight; i += 40) {
+        let line = document.createElement("div");
+        line.style.top = i + "px";
+        line.className = "row1";
+        decorations.appendChild(line);
+        line = document.createElement("div");
+        line.style.top = i + "px";
+        line.className = "row2";
+        decorations.appendChild(line);
+      }
+    }
+</script>
