@@ -120,7 +120,7 @@ Layout and painting {#layout-painting}
 		<figcaption>
 			Locations of <a>gap intersection points</a> in a grid with spanning items.
 			Note the presence of <a>gap intersection points</a> at edges of the container,
-			Note the absence of <a>gap intersection points</a> where adjacent grid items
+			and the absence of <a>gap intersection points</a> where adjacent grid items
 			span both sides of what would otherwise be an intersection (#2 and #6, or #4 and #7).
 		</figcaption>
 	</div>
@@ -233,6 +233,22 @@ Breaking gap decorations into segments: The 'column-rule-break', 'row-rule-break
 				</li>
 			</ol>
 			...then go back to step 4.
+
+			Note: The test when |break| is ''column-rule-break/spanning-item''
+			is intended to address cases such as the one below:
+			<img src="images/flex-offset-gap.png">
+			<br>
+			The four marked <a>gap intersection points</a> all fall along a common centerline.
+			However, because item 3 is slightly wider than items 1 and 5,
+			the ''colunm-rule-break/spanning-item'' test returns false
+			when |start| is the topmost point
+			and the first point in |endpoints| is the third point from the top.
+			Thus, the two upper <a>gap intersection points</a> form a pair,
+			and the two lower <a>gap intersection points</a> form a pair.
+			(There is an additional pair of <a>gap intersection points</a>,
+			slightly offset to the right of the two middle points,
+			which are not marked.
+			These points will form another pair.)
 
 		<li>
 			<a>Compute the offset</a> for |start| within |gap|.

@@ -8,7 +8,7 @@
   <meta content="Bikeshed version d765c696b, updated Fri Mar 8 15:58:52 2024 -0800" name="generator">
   <link href="https://drafts.csswg.org/css-gaps-1" rel="canonical">
   <link href="https://drafts.csswg.org/csslogo.ico" rel="icon">
-  <meta content="5395e9993b7a46f3e4bf33b9d2ecd41ab2719d10" name="revision">
+  <meta content="34c66dbad61d3307c821b39e13b9a33244554215" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -872,8 +872,8 @@ on screen, on paper, etc.
    </ul>
    <p>The following examples illustrate the locations of <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point">gap intersection points</a>,
 	marked with a magenta <span style="color:#f0f">+</span> in each case.</p>
-   <div class="example" id="example-19312554">
-    <a class="self-link" href="#example-19312554"></a> 
+   <div class="example" id="example-217ec7b6">
+    <a class="self-link" href="#example-217ec7b6"></a> 
 <pre>.grid {
   display: grid;
   grid-template: repeat(4, 100px) / repeat(4, 100px);
@@ -887,7 +887,7 @@ on screen, on paper, etc.
     <p><img height="481" src="images/example-gap-intersection-grid.png" width="483"></p>
     <figcaption> Locations of <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①">gap intersection points</a> in a grid with spanning items.
 			Note the presence of <span id="ref-for-gap-intersection-point②">gap intersection points</span> at edges of the container,
-			Note the absence of <span id="ref-for-gap-intersection-point③">gap intersection points</span> where adjacent grid items
+			and the absence of <span id="ref-for-gap-intersection-point③">gap intersection points</span> where adjacent grid items
 			span both sides of what would otherwise be an intersection (#2 and #6, or #4 and #7). </figcaption>
    </div>
    <div class="example" id="example-883084bc">
@@ -1007,6 +1007,17 @@ on screen, on paper, etc.
       <li> <var>break</var> is <a class="css" data-link-type="maybe" href="#valdef-column-rule-break-none" id="ref-for-valdef-column-rule-break-none①">none</a> 
      </ol>
       ...then go back to step 4. 
+     <p class="note" role="note"><span class="marker">Note:</span> The test when <var>break</var> is <a class="css" data-link-type="maybe" href="#valdef-column-rule-break-spanning-item" id="ref-for-valdef-column-rule-break-spanning-item③">spanning-item</a> is intended to address cases such as the one below: <img height="353" src="images/flex-offset-gap.png" width="394"> <br> The four marked <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①②">gap intersection points</a> all fall along a common centerline.
+			However, because item 3 is slightly wider than items 1 and 5,
+			the <span class="css">spanning-item</span> test returns false
+			when <var>start</var> is the topmost point
+			and the first point in <var>endpoints</var> is the third point from the top.
+			Thus, the two upper <span id="ref-for-gap-intersection-point①③">gap intersection points</span> form a pair,
+			and the two lower <span id="ref-for-gap-intersection-point①④">gap intersection points</span> form a pair.
+			(There is an additional pair of <span id="ref-for-gap-intersection-point①⑤">gap intersection points</span>,
+			slightly offset to the right of the two middle points,
+			which are not marked.
+			These points will form another pair.)</p>
     <li> <a data-link-type="dfn" href="#compute-the-offset" id="ref-for-compute-the-offset">Compute the offset</a> for <var>start</var> within <var>gap</var>.
 			Offset <var>start</var> by the result,
 			in the forward direction along <var>gap</var>’s axis. 
@@ -1027,7 +1038,7 @@ on screen, on paper, etc.
 }
 </pre>
     <p><img height="474" src="images/example-break-intersection.png" width="474"></p>
-    <figcaption> <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration⑥">Gap decorations</a> broken at every <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①②">gap intersection point</a>. </figcaption>
+    <figcaption> <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration⑥">Gap decorations</a> broken at every <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①⑥">gap intersection point</a>. </figcaption>
    </div>
    <div class="example" id="example-77bf956e">
     <a class="self-link" href="#example-77bf956e"></a> 
@@ -1037,7 +1048,7 @@ on screen, on paper, etc.
 }
 </pre>
     <p><img height="471" src="images/example-break-spanning-item.png" width="472"></p>
-    <figcaption> <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration⑦">Gap decorations</a> broken at <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①③">gap intersection points</a> that are not adjacent to a spanning item. </figcaption>
+    <figcaption> <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration⑦">Gap decorations</a> broken at <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①⑦">gap intersection points</a> that are not adjacent to a spanning item. </figcaption>
    </div>
    <div class="example" id="example-65569ef0">
     <a class="self-link" href="#example-65569ef0"></a> 
@@ -1081,7 +1092,7 @@ on screen, on paper, etc.
       <th><a href="https://www.w3.org/TR/web-animations/#animation-type">Animation type:</a>
       <td>by computed value type 
    </table>
-   <p>These properties can be used to offset the endpoints of <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration①⓪">gap decorations</a> relative to the <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①④">gap intersection points</a> which would normally determine their endpoints.
+   <p>These properties can be used to offset the endpoints of <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration①⓪">gap decorations</a> relative to the <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①⑧">gap intersection points</a> which would normally determine their endpoints.
 	The initial value of <span class="css">50%</span> places the <span id="ref-for-gap-decoration①①">gap decoration</span> endpoint in the center of the intersection.
 	With a value of <span class="css">0</span>, the <span id="ref-for-gap-decoration①②">gap decoration</span> endpoint will coincide with the edge of the intersection.
 	Positive values extend towards the center of the intersection;
@@ -1159,7 +1170,7 @@ on screen, on paper, etc.
     <p><img height="351" src="images/example-column-outset-minus-5px.png" width="352"></p>
     <figcaption> An outset of <span class="css">-5px</span> shortens the ends of <a data-link-type="dfn" href="#gap-decoration" id="ref-for-gap-decoration①⑧">gap decorations</a> relative to the edges of adjacent items. </figcaption>
    </div>
-   <p>When considering the <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①⑤">gap intersection points</a> within a given gap,
+   <p>When considering the <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①⑨">gap intersection points</a> within a given gap,
 	each point is assigned a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="crossing-gap-width">crossing gap width</dfn>, defined as follows:</p>
    <dl>
     <dt> At the content edge of the container 
@@ -1167,7 +1178,7 @@ on screen, on paper, etc.
     <dt> At an intersection with another gap 
     <dd> The <a data-link-type="dfn" href="#crossing-gap-width" id="ref-for-crossing-gap-width③">crossing gap width</a> is the used value of the <a class="property css" data-link-type="property" href="#propdef-column-rule-width" id="ref-for-propdef-column-rule-width①">column-rule-width</a> or <a class="property css" data-link-type="property" href="#propdef-row-rule-width" id="ref-for-propdef-row-rule-width">row-rule-width</a> property, whichever applies to the intersecting gap. 
    </dl>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compute-the-offset">compute the offset</dfn> for a given <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point①⑥">gap intersection point</a> <var>point</var> within a given <var>gap</var>:</p>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compute-the-offset">compute the offset</dfn> for a given <a data-link-type="dfn" href="#gap-intersection-point" id="ref-for-gap-intersection-point②⓪">gap intersection point</a> <var>point</var> within a given <var>gap</var>:</p>
    <ol>
     <li> Let <var>width</var> be the <a data-link-type="dfn" href="#crossing-gap-width" id="ref-for-crossing-gap-width④">crossing gap width</a> for <var>point</var>. 
     <li> Let <var>outset</var> be the computed value of either <a class="property css" data-link-type="property" href="#propdef-column-rule-outset" id="ref-for-propdef-column-rule-outset④">column-rule-outset</a> or <a class="property css" data-link-type="property" href="#propdef-row-rule-outset" id="ref-for-propdef-row-rule-outset③">row-rule-outset</a>,
@@ -2312,7 +2323,7 @@ let dfnPanelData = {
 "f005b2f6": {"dfnID":"f005b2f6","dfnText":"grid container","external":true,"refSections":[{"refs":[{"id":"ref-for-grid-container"}],"title":"2. Gap decorations"},{"refs":[{"id":"ref-for-grid-container\u2460"}],"title":"2.1. Layout and painting"},{"refs":[{"id":"ref-for-grid-container\u2461"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"},{"refs":[{"id":"ref-for-grid-container\u2462"}],"title":"2.3. Adjusting gap decoration endpoints: The column-rule-outset, row-rule-outset, and gap-rule-outset properties"},{"refs":[{"id":"ref-for-grid-container\u2463"}],"title":"2.4. Gap decoration paint order: The gap-rule-paint-order property"},{"refs":[{"id":"ref-for-grid-container\u2464"}],"title":"3.1. Gap decoration color: The column-rule-color and row-rule-color properties"},{"refs":[{"id":"ref-for-grid-container\u2465"}],"title":"3.2. Gap decoration style: The column-rule-style and row-rule-style properties"},{"refs":[{"id":"ref-for-grid-container\u2466"}],"title":"3.3. Gap decoration width: The column-rule-width and row-rule-width properties"}],"url":"https://drafts.csswg.org/css-grid-2/#grid-container"},
 "funcdef-repeat": {"dfnID":"funcdef-repeat","dfnText":"repeat()","external":false,"refSections":[{"refs":[{"id":"ref-for-funcdef-repeat"},{"id":"ref-for-funcdef-repeat\u2460"},{"id":"ref-for-funcdef-repeat\u2461"},{"id":"ref-for-funcdef-repeat\u2462"},{"id":"ref-for-funcdef-repeat\u2463"},{"id":"ref-for-funcdef-repeat\u2464"}],"title":"3.4. Lists of values and the repeat() notation"}],"url":"#funcdef-repeat"},
 "gap-decoration": {"dfnID":"gap-decoration","dfnText":"gap decoration","external":false,"refSections":[{"refs":[{"id":"ref-for-gap-decoration"},{"id":"ref-for-gap-decoration\u2460"},{"id":"ref-for-gap-decoration\u2461"},{"id":"ref-for-gap-decoration\u2462"},{"id":"ref-for-gap-decoration\u2463"}],"title":"2.1. Layout and painting"},{"refs":[{"id":"ref-for-gap-decoration\u2464"},{"id":"ref-for-gap-decoration\u2465"},{"id":"ref-for-gap-decoration\u2466"},{"id":"ref-for-gap-decoration\u2467"},{"id":"ref-for-gap-decoration\u2468"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"},{"refs":[{"id":"ref-for-gap-decoration\u2460\u24ea"},{"id":"ref-for-gap-decoration\u2460\u2460"},{"id":"ref-for-gap-decoration\u2460\u2461"},{"id":"ref-for-gap-decoration\u2460\u2462"},{"id":"ref-for-gap-decoration\u2460\u2463"},{"id":"ref-for-gap-decoration\u2460\u2464"},{"id":"ref-for-gap-decoration\u2460\u2465"},{"id":"ref-for-gap-decoration\u2460\u2466"},{"id":"ref-for-gap-decoration\u2460\u2467"}],"title":"2.3. Adjusting gap decoration endpoints: The column-rule-outset, row-rule-outset, and gap-rule-outset properties"},{"refs":[{"id":"ref-for-gap-decoration\u2460\u2468"}],"title":"2.4. Gap decoration paint order: The gap-rule-paint-order property"},{"refs":[{"id":"ref-for-gap-decoration\u2461\u24ea"}],"title":"3.1. Gap decoration color: The column-rule-color and row-rule-color properties"},{"refs":[{"id":"ref-for-gap-decoration\u2461\u2460"}],"title":"3.2. Gap decoration style: The column-rule-style and row-rule-style properties"},{"refs":[{"id":"ref-for-gap-decoration\u2461\u2461"}],"title":"3.3. Gap decoration width: The column-rule-width and row-rule-width properties"},{"refs":[{"id":"ref-for-gap-decoration\u2461\u2462"},{"id":"ref-for-gap-decoration\u2461\u2463"}],"title":"3.4. Lists of values and the repeat() notation"}],"url":"#gap-decoration"},
-"gap-intersection-point": {"dfnID":"gap-intersection-point","dfnText":"gap intersection point","external":false,"refSections":[{"refs":[{"id":"ref-for-gap-intersection-point"},{"id":"ref-for-gap-intersection-point\u2460"},{"id":"ref-for-gap-intersection-point\u2461"},{"id":"ref-for-gap-intersection-point\u2462"},{"id":"ref-for-gap-intersection-point\u2463"},{"id":"ref-for-gap-intersection-point\u2464"},{"id":"ref-for-gap-intersection-point\u2465"},{"id":"ref-for-gap-intersection-point\u2466"}],"title":"2.1. Layout and painting"},{"refs":[{"id":"ref-for-gap-intersection-point\u2467"},{"id":"ref-for-gap-intersection-point\u2468"},{"id":"ref-for-gap-intersection-point\u2460\u24ea"},{"id":"ref-for-gap-intersection-point\u2460\u2460"},{"id":"ref-for-gap-intersection-point\u2460\u2461"},{"id":"ref-for-gap-intersection-point\u2460\u2462"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"},{"refs":[{"id":"ref-for-gap-intersection-point\u2460\u2463"},{"id":"ref-for-gap-intersection-point\u2460\u2464"},{"id":"ref-for-gap-intersection-point\u2460\u2465"}],"title":"2.3. Adjusting gap decoration endpoints: The column-rule-outset, row-rule-outset, and gap-rule-outset properties"}],"url":"#gap-intersection-point"},
+"gap-intersection-point": {"dfnID":"gap-intersection-point","dfnText":"gap intersection point","external":false,"refSections":[{"refs":[{"id":"ref-for-gap-intersection-point"},{"id":"ref-for-gap-intersection-point\u2460"},{"id":"ref-for-gap-intersection-point\u2461"},{"id":"ref-for-gap-intersection-point\u2462"},{"id":"ref-for-gap-intersection-point\u2463"},{"id":"ref-for-gap-intersection-point\u2464"},{"id":"ref-for-gap-intersection-point\u2465"},{"id":"ref-for-gap-intersection-point\u2466"}],"title":"2.1. Layout and painting"},{"refs":[{"id":"ref-for-gap-intersection-point\u2467"},{"id":"ref-for-gap-intersection-point\u2468"},{"id":"ref-for-gap-intersection-point\u2460\u24ea"},{"id":"ref-for-gap-intersection-point\u2460\u2460"},{"id":"ref-for-gap-intersection-point\u2460\u2461"},{"id":"ref-for-gap-intersection-point\u2460\u2462"},{"id":"ref-for-gap-intersection-point\u2460\u2463"},{"id":"ref-for-gap-intersection-point\u2460\u2464"},{"id":"ref-for-gap-intersection-point\u2460\u2465"},{"id":"ref-for-gap-intersection-point\u2460\u2466"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"},{"refs":[{"id":"ref-for-gap-intersection-point\u2460\u2467"},{"id":"ref-for-gap-intersection-point\u2460\u2468"},{"id":"ref-for-gap-intersection-point\u2461\u24ea"}],"title":"2.3. Adjusting gap decoration endpoints: The column-rule-outset, row-rule-outset, and gap-rule-outset properties"}],"url":"#gap-intersection-point"},
 "integer-repeater": {"dfnID":"integer-repeater","dfnText":"integer repeater","external":false,"refSections":[{"refs":[{"id":"ref-for-integer-repeater"},{"id":"ref-for-integer-repeater\u2460"}],"title":"3.4. Lists of values and the repeat() notation"}],"url":"#integer-repeater"},
 "propdef-column-rule": {"dfnID":"propdef-column-rule","dfnText":"column-rule","external":false,"refSections":[{"refs":[{"id":"ref-for-propdef-column-rule"}],"title":"3.5. Gap decoration shorthands: The column-rule and row-rule properties"},{"refs":[{"id":"ref-for-propdef-column-rule\u2460"},{"id":"ref-for-propdef-column-rule\u2461"}],"title":"3.6. Bi-directional gap decoration shorthands: The gap-rule-color, gap-rule-style, gap-rule-width, and gap-rule properties"}],"url":"#propdef-column-rule"},
 "propdef-column-rule-break": {"dfnID":"propdef-column-rule-break","dfnText":"column-rule-break","external":false,"refSections":[{"refs":[{"id":"ref-for-propdef-column-rule-break"},{"id":"ref-for-propdef-column-rule-break\u2460"},{"id":"ref-for-propdef-column-rule-break\u2461"},{"id":"ref-for-propdef-column-rule-break\u2462"},{"id":"ref-for-propdef-column-rule-break\u2463"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"}],"url":"#propdef-column-rule-break"},
@@ -2356,7 +2367,7 @@ let dfnPanelData = {
 "typedef-repeat-line-width": {"dfnID":"typedef-repeat-line-width","dfnText":"<repeat-line-width>","external":false,"refSections":[{"refs":[{"id":"ref-for-typedef-repeat-line-width"}],"title":"3.3. Gap decoration width: The column-rule-width and row-rule-width properties"}],"url":"#typedef-repeat-line-width"},
 "valdef-column-rule-break-intersection": {"dfnID":"valdef-column-rule-break-intersection","dfnText":"intersection","external":false,"refSections":[{"refs":[{"id":"ref-for-valdef-column-rule-break-intersection"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"}],"url":"#valdef-column-rule-break-intersection"},
 "valdef-column-rule-break-none": {"dfnID":"valdef-column-rule-break-none","dfnText":"none","external":false,"refSections":[{"refs":[{"id":"ref-for-valdef-column-rule-break-none"},{"id":"ref-for-valdef-column-rule-break-none\u2460"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"}],"url":"#valdef-column-rule-break-none"},
-"valdef-column-rule-break-spanning-item": {"dfnID":"valdef-column-rule-break-spanning-item","dfnText":"spanning-item","external":false,"refSections":[{"refs":[{"id":"ref-for-valdef-column-rule-break-spanning-item"},{"id":"ref-for-valdef-column-rule-break-spanning-item\u2460"},{"id":"ref-for-valdef-column-rule-break-spanning-item\u2461"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"}],"url":"#valdef-column-rule-break-spanning-item"},
+"valdef-column-rule-break-spanning-item": {"dfnID":"valdef-column-rule-break-spanning-item","dfnText":"spanning-item","external":false,"refSections":[{"refs":[{"id":"ref-for-valdef-column-rule-break-spanning-item"},{"id":"ref-for-valdef-column-rule-break-spanning-item\u2460"},{"id":"ref-for-valdef-column-rule-break-spanning-item\u2461"},{"id":"ref-for-valdef-column-rule-break-spanning-item\u2462"}],"title":"2.2. Breaking gap decorations into segments: The column-rule-break, row-rule-break, and gap-rule-break properties"}],"url":"#valdef-column-rule-break-spanning-item"},
 "valdef-column-rule-color-color": {"dfnID":"valdef-column-rule-color-color","dfnText":"<color>","external":false,"refSections":[],"url":"#valdef-column-rule-color-color"},
 };
 
