@@ -13,6 +13,9 @@ Abstract: This module introduces several properties to add row and column gap de
 <pre class='anchors'>
 urlPrefix: https://drafts.csswg.org/css-grid-3/; type: dfn; spec: CSS-GRID-3; text: masonry container
 </pre>
+<pre class='link-defaults'>
+spec:css-color-5; type:type; text:<color>
+</pre>
 
 Introduction {#intro}
 =====================
@@ -225,7 +228,7 @@ Breaking gap decorations into segments: The 'column-rule-break', 'row-rule-break
 				<li>
 					|break| is ''column-rule-break/spanning-item'',
 					and a line segment from |start| to the first item in |endpoints|,
-					with the same width as the |gap|,
+					with the same width as |gap|,
 					does not intersect a child item in the container
 				</li>
 				<li>
@@ -238,7 +241,7 @@ Breaking gap decorations into segments: The 'column-rule-break', 'row-rule-break
 			is intended to address cases such as the one below:
 			<img src="images/flex-offset-gap.png">
 			<br>
-			The four marked <a>gap intersection points</a> all fall along a common centerline.
+			The four marked <a>gap intersection points</a> fall along a common gap centerline.
 			However, because item 3 is slightly wider than items 1 and 5,
 			the ''colunm-rule-break/spanning-item'' test returns false
 			when |start| is the topmost point
@@ -257,7 +260,7 @@ Breaking gap decorations into segments: The 'column-rule-break', 'row-rule-break
 		</li>
 
 		<li>
-			<a>Compute the offset</a> for |end| within the |gap|.
+			<a>Compute the offset</a> for |end| within |gap|.
 			Offset |end| by the result,
 			in the reverse direction along |gap|'s axis.
 		</li>
@@ -414,8 +417,8 @@ Adjusting gap decoration endpoints: The 'column-rule-outset', 'row-rule-outset',
 		<dt>
 			At an intersection with another gap
 		<dd>
-			The <a>crossing gap width</a> is the used value of the 'column-rule-width'
-			or 'row-rule-width' property, whichever applies to the intersecting gap.
+			The <a>crossing gap width</a> is the used value of the 'column-gap' or 'row-gap' property,
+			whichever applies to the intersecting gap.
 	</dl>
 
 	To <dfn>compute the offset</dfn> for a given <a>gap intersection point</a> |point| within a given |gap|:
