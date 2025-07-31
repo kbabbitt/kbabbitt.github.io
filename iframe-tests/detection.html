@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<style>
+    table { border-spacing: 5px; }
+</style>
+<script>
+    function log(text) {
+    document.getElementById("log").appendChild(
+        document.createTextNode(text + "\n"));
+    }
+
+    function log_result(test, result) {
+    document.getElementById("results").innerHTML +=
+        "<tr><td>" + test + "</td><td>" + (result
+                ? "Detected iframe"
+                : "Did not detect iframe"
+        ) + "</td></tr>";
+    }
+
+    let tests = [
+    function() {
+        log("crossOriginIsolated: " + window.crossOriginIsolated);
+    },
+
+    function() {
+        log_result("window.location test",
+        (window.location !== window.parent.location));
+    },
+
+    function() {
+        log_result("window.parent test",
+        (window !== window.parent));
+    },
+
+    function() {
+        log_result("window.self test",
+        (window.self !== window.top));
+    },
+    
+    function() {
+        log_result("window.frameElement test",
+        window.frameElement != null);
+    }
+    ]
+</script>
+<h1>iframe detection</h1>
+<pre id="log"></pre>
+<table id="results">
+  <tr><th>Test</th><th>Result</th></tr>
+</table>
+<script>
+    for (let test of tests) {
+        test();
+    }
+</script>
