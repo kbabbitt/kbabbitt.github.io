@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scaling words at intervals - transform-origin adjustments</title>
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 { margin-bottom: 0.25em; }
+    h2 { margin: 30px 0 5px; }
+    .container {
+      position: relative;
+      background: lightgray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 1em;
+      padding: 0 20px;
+      font: 16pt Helvetica, Arial, sans-serif;
+      margin: 0 20px 4px;
+      height: 40pt;
+    }
+    .description {
+      position: absolute;
+      top: 4px;
+      left: 10px;
+      font-size: 8pt;
+      color: #666;
+      margin: 5px;
+    }
+    .word {
+      animation: 2s ease-in-out infinite;
+    }
+    .left .word {
+      transform-origin: left;
+    }
+    .right .word {
+      transform-origin: right;
+    }
+    @keyframes word1 {
+       0%, 20%  { transform: scale(1); }
+      40%, 100% { transform: scale(2); }
+    }
+    @keyframes word2 {
+       0%, 20%  { transform: scale(1); }
+      60%, 100% { transform: scale(2); }
+    }
+    @keyframes word3 {
+       0%, 20%  { transform: scale(1); }
+      80%, 100% { transform: scale(2); }
+    }
+    .one, .all {
+      animation-name: word1;
+    }
+    .two {
+      animation-name: word2;
+    }
+    .three {
+      animation-name: word3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container left">
+    <p class="description">Entire block:</p>
+    <span class="word all">Transform Origin Left</span>
+  </div>
+  <div class="container left">
+    <p class="description">Individual words (no adjustment — incorrect):</p>
+    <span class="word one">Transform</span><span>&nbsp;</span><span class="word two">Origin</span><span>&nbsp;</span><span class="word three">Left</span>
+  </div>
+  <div class="container left corrected" data-origin="left">
+    <p class="description">Individual words (with adjustment — corrected):</p>
+    <span class="word one">Transform</span><span>&nbsp;</span><span class="word two">Origin</span><span>&nbsp;</span><span class="word three">Left</span>
+  </div>
+  <hr>
+  <div class="container">
+    <p class="description">Entire block:</p>
+    <span class="word all">Transform Origin Center</span>
+  </div>
+  <div class="container">
+    <p class="description">Individual words (no adjustment — incorrect):</p>
+    <span class="word one">Transform</span><span>&nbsp;</span><span class="word two">Origin</span><span>&nbsp;</span><span class="word three">Center</span>
+  </div>
+  <div class="container corrected" data-origin="center">
+    <p class="description">Individual words (with adjustment — corrected):</p>
+    <span class="word one">Transform</span><span>&nbsp;</span><span class="word two">Origin</span><span>&nbsp;</span><span class="word three">Center</span>
+  </div>
+  <hr>
+  <div class="container right">
+    <p class="description">Entire block:</p>
+    <span class="word all">Transform Origin Right</span>
+  </div>
+  <div class="container right">
+    <p class="description">Individual words (no adjustment — incorrect):</p>
+    <span class="word one">Transform</span><span>&nbsp;</span><span class="word two">Origin</span><span>&nbsp;</span><span class="word three">Right</span>
+  </div>
+  <div class="container right corrected" data-origin="right">
+    <p class="description">Individual words (with adjustment — corrected):</p>
+    <span class="word one">Transform</span><span>&nbsp;</span><span class="word two">Origin</span><span>&nbsp;</span><span class="word three">Right</span>
+  </div>
+
+  <script>
+    // When a block spanning [0, W] is scaled by factor s from origin o,
+    // a point at position x moves to: o + (x − o) × s.
+    //
+    // For an individual word whose left edge is at position p relative to
+    // the block's left edge, we want its CSS transform-origin (in the
+    // word's own coordinate space) to produce the same result.  Setting
+    // transform-origin to (o − p) px achieves this:
+    //
+    //   new position of word's left edge
+    //     = p + (o − p) × (1 − s)          ← individual-word formula
+    //     = p + o − o·s − p + p·s
+    //     = o·(1 − s) + p·s                ← matches block formula  ✓
+    //
+    // We measure positions with getBoundingClientRect() so that
+    // inter-word space widths are accounted for automatically.
+
+    document.querySelectorAll('.corrected').forEach(container => {
+      const words = container.querySelectorAll('.word');
+      const originType = container.dataset.origin;
+      const rects = Array.from(words).map(w => w.getBoundingClientRect());
+
+      // The "block" spans from the first word's left edge to the last
+      // word's right edge.
+      const blockLeft  = rects[0].left;
+      const blockRight = rects[rects.length - 1].right;
+      const blockWidth = blockRight - blockLeft;
+
+      let blockOriginX;
+      switch (originType) {
+        case 'left':   blockOriginX = blockLeft; break;
+        case 'center': blockOriginX = blockLeft + blockWidth / 2; break;
+        case 'right':  blockOriginX = blockRight; break;
+      }
+
+      words.forEach((word, i) => {
+        // o − p, expressed in the word's own coordinate system
+        word.style.transformOrigin = (blockOriginX - rects[i].left) + 'px';
+      });
+    });
+  </script>
+</body>
+</html>
