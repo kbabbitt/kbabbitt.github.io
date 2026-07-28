@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+<style>
+    @keyframes anim {
+        from { color: red; }
+        to { color: blue; }
+    }
+    span {
+        animation: anim 1s infinite alternate;
+    }
+</style>
+</head>
+<body>
+    <div id="host"></div>
+    <div>I'm not in the shadow DOM (<span>Anim</span>)</div>
+    <script>
+        const host = document.querySelector("#host");
+        const shadow = host.attachShadow({ mode: "open" });
+        const div = document.createElement("div");
+        div.innerHTML = "I'm in the shadow DOM (<span>Anim</span>)";
+        shadow.appendChild(div);
+        const style = document.createElement("style");
+        style.textContent = "span { animation: anim 1s infinite alternate; }";
+        shadow.appendChild(style);
+    </script>
+</body>
